@@ -207,7 +207,7 @@ module __Animated =
     let interpolate: (Value -> ResizeArray<float> -> ResizeArray<string> -> Value) = jsNative
 
 module ___common_Easing =
-    module Types = __Types
+    module Types = ___common_Types
 
     type [<AllowNullLiteral>] Easing =
         inherit Types.Animated.Easing
@@ -229,7 +229,7 @@ module ___common_Easing =
     let _default: Easing = jsNative
 
 module ___common_Types =
-    module RX = __Interfaces
+    module RX = ___common_Interfaces
 
     type ReactNode =
         React.ReactNode
@@ -855,8 +855,8 @@ module ___common_Types =
         abstract allowFontScaling: bool option with get, set
         abstract maxContentSizeMultiplier: float option with get, set
         abstract tabIndex: float option with get, set
-        abstract onPress: (RX.Types.SyntheticEvent -> string -> unit) option with get, set
-        abstract onLongPress: (RX.Types.SyntheticEvent -> string -> unit) option with get, set
+        abstract onPress: (___common_Types.SyntheticEvent -> string -> unit) option with get, set
+        abstract onLongPress: (___common_Types.SyntheticEvent -> string -> unit) option with get, set
         abstract onHoverStart: (SyntheticEvent -> unit) option with get, set
         abstract onHoverEnd: (SyntheticEvent -> unit) option with get, set
 
@@ -964,7 +964,7 @@ module ___common_Types =
         abstract onDismiss: (unit -> unit) option with get, set
         abstract positionPriorities: ResizeArray<PopupPosition> option with get, set
         abstract useInnerPositioning: bool option with get, set
-        abstract onAnchorPressed: (RX.Types.SyntheticEvent -> unit) option with get, set
+        abstract onAnchorPressed: (___common_Types.SyntheticEvent -> unit) option with get, set
         abstract dismissIfShown: bool option with get, set
         abstract preventDismissOnPress: bool option with get, set
         abstract rootViewId: string option with get, set
@@ -1207,7 +1207,7 @@ module ___common_Types =
 
 module ___common_Interfaces =
     module SyncTasks = Synctasks'
-    module Types = __Types
+    module Types = ___common_Types
 
     type [<AllowNullLiteral>] ActivityIndicator =
         inherit React.Component<Types.ActivityIndicatorProps, obj option>
