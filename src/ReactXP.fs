@@ -19,17 +19,17 @@ module ReactXP =
 
     type [<AllowNullLiteral>] IExports =
         abstract Accessibility: RXInterfaces.Accessibility
-        abstract ActivityIndicator: obj
+        abstract ActivityIndicator: RXInterfaces.ActivityIndicator
         abstract Alert: RXInterfaces.Alert
         abstract App: RXInterfaces.App
-        abstract Button: obj
-        abstract Picker: obj
+        abstract Button: RXInterfaces.Button
+        abstract Picker: RXInterfaces.Picker
         abstract Clipboard: RXInterfaces.Clipboard
-        abstract GestureView: obj
+        abstract GestureView: RXInterfaces.GestureView
         abstract Image: RXInterfaces.ImageConstructor
         abstract Input: RXInterfaces.Input
         abstract International: RXInterfaces.International
-        abstract Link: obj
+        abstract Link: RXInterfaces.Link
         abstract Linking: RXInterfaces.Linking
         abstract Location: RXInterfaces.Location
         abstract Modal: RXInterfaces.Modal
@@ -40,11 +40,11 @@ module ReactXP =
         abstract StatusBar: RXInterfaces.StatusBar
         abstract Storage: RXInterfaces.Storage
         abstract Styles: RXInterfaces.Styles
-        abstract Text: obj
-        abstract TextInput: obj
+        abstract Text: RXInterfaces.Text
+        abstract TextInput: RXInterfaces.TextInput
         abstract UserInterface: RXInterfaces.UserInterface
         abstract UserPresence: RXInterfaces.UserPresence
-        abstract View: obj
+        abstract View: RXInterfaces.View
         abstract WebView: RXInterfaces.WebViewConstructor
         abstract createElement: obj
         abstract Children: React.ReactChildren
@@ -207,7 +207,7 @@ module __Animated =
     let interpolate: (Value -> ResizeArray<float> -> ResizeArray<string> -> Value) = jsNative
 
 module ___common_Easing =
-    module Types = ___common_Types
+    module Types = __Types
 
     type [<AllowNullLiteral>] Easing =
         inherit Types.Animated.Easing
@@ -229,7 +229,7 @@ module ___common_Easing =
     let _default: Easing = jsNative
 
 module ___common_Types =
-    module RX = ___common_Interfaces
+    module RX = __Interfaces
 
     type ReactNode =
         React.ReactNode
@@ -855,8 +855,8 @@ module ___common_Types =
         abstract allowFontScaling: bool option with get, set
         abstract maxContentSizeMultiplier: float option with get, set
         abstract tabIndex: float option with get, set
-        abstract onPress: (___common_Types.SyntheticEvent -> string -> unit) option with get, set
-        abstract onLongPress: (___common_Types.SyntheticEvent -> string -> unit) option with get, set
+        abstract onPress: (RX.Types.SyntheticEvent -> string -> unit) option with get, set
+        abstract onLongPress: (RX.Types.SyntheticEvent -> string -> unit) option with get, set
         abstract onHoverStart: (SyntheticEvent -> unit) option with get, set
         abstract onHoverEnd: (SyntheticEvent -> unit) option with get, set
 
@@ -964,7 +964,7 @@ module ___common_Types =
         abstract onDismiss: (unit -> unit) option with get, set
         abstract positionPriorities: ResizeArray<PopupPosition> option with get, set
         abstract useInnerPositioning: bool option with get, set
-        abstract onAnchorPressed: (___common_Types.SyntheticEvent -> unit) option with get, set
+        abstract onAnchorPressed: (RX.Types.SyntheticEvent -> unit) option with get, set
         abstract dismissIfShown: bool option with get, set
         abstract preventDismissOnPress: bool option with get, set
         abstract rootViewId: string option with get, set
@@ -1207,7 +1207,7 @@ module ___common_Types =
 
 module ___common_Interfaces =
     module SyncTasks = Synctasks'
-    module Types = ___common_Types
+    module Types = __Types
 
     type [<AllowNullLiteral>] ActivityIndicator =
         inherit React.Component<Types.ActivityIndicatorProps, obj option>
