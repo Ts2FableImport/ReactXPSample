@@ -3,11 +3,9 @@ module ReactXPSample
 open Fable.Core
 open Fable.Core.JsInterop
 open Fable.Import
-open Fable.Helpers.React
-open Reactxp'
+open Fable.Helpers.ReactXP
 let init() =
-    let t = div[][str "Hello"]
-    reactXP.UserInterface.setMainView t
+    RX.UserInterface.setMainView <| (RX.Text[][str "Hello"])
     // let t =UserInterface.contentSizeMultiplierChangedEvent
     ()
 init()
