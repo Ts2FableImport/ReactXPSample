@@ -5033,7 +5033,7 @@ react-native-windows@^0.52.0-rc.0:
     yeoman-environment "^1.5.3"
     yeoman-generator "^0.21.2"
 
-react-native@^0.52.2:
+react-native@0.52.2:
   version "0.52.2"
   resolved "http://registry.npm.taobao.org/react-native/download/react-native-0.52.2.tgz#1ae9a4c4441bd6e54a8ffc8aae4ac2b5c7cccd68"
   dependencies:

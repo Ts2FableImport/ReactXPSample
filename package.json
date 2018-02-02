@@ -1,5 +1,6 @@
 {
   "private": true,
+  "name": "fable-reactxp-sample",
   "scripts": {
     "build": "fable-splitter src/ReactXPSample.fsproj --outDir public",
     "start": "webpack-dev-server",
@@ -19,7 +20,7 @@
     "fable-splitter": "^0.1.21",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-native": "^0.52.2",
+    "react-native": "0.52.2",
     "react-native-windows": "^0.52.0-rc.0",
     "reactxp": "^0.51.2"
   }
