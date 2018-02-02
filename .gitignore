@@ -4,6 +4,8 @@ paket-files
 .DS_Store
 src/obj/
 # Xcode
+public/*.js
+public/*/
 #
 build/
 *.pbxuser
