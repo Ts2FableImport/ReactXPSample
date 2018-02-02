@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "fable-reactxp-sample",
+  "name": "ReactXPSample",
   "scripts": {
     "build": "fable-splitter src/ReactXPSample.fsproj --outDir public",
     "start": "webpack-dev-server",

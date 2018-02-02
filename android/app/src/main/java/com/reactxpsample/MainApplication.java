@@ -1,4 +1,4 @@
-package com.fable-reactxp-sample;
+package com.reactxpsample;
 
 import android.app.Application;
 

@@ -1,7 +1,8 @@
 # OSX
 #
+paket-files
 .DS_Store
-
+src/obj/
 # Xcode
 #
 build/

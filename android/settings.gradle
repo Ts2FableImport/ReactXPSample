@@ -1,3 +1,3 @@
-rootProject.name = 'fable-reactxp-sample'
+rootProject.name = 'ReactXPSample'
 
 include ':app'

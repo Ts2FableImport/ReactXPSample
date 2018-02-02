@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "fable-reactxp-sample-tvOS.app"
-               BlueprintName = "fable-reactxp-sample-tvOS"
-               ReferencedContainer = "container:fable-reactxp-sample.xcodeproj">
+               BuildableName = "ReactXPSample-tvOS.app"
+               BlueprintName = "ReactXPSample-tvOS"
+               ReferencedContainer = "container:ReactXPSample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "fable-reactxp-sample-tvOSTests.xctest"
-               BlueprintName = "fable-reactxp-sample-tvOSTests"
-               ReferencedContainer = "container:fable-reactxp-sample.xcodeproj">
+               BuildableName = "ReactXPSample-tvOSTests.xctest"
+               BlueprintName = "ReactXPSample-tvOSTests"
+               ReferencedContainer = "container:ReactXPSample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -61,9 +61,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "fable-reactxp-sample-tvOSTests.xctest"
-               BlueprintName = "fable-reactxp-sample-tvOSTests"
-               ReferencedContainer = "container:fable-reactxp-sample.xcodeproj">
+               BuildableName = "ReactXPSample-tvOSTests.xctest"
+               BlueprintName = "ReactXPSample-tvOSTests"
+               ReferencedContainer = "container:ReactXPSample.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -71,9 +71,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "fable-reactxp-sample-tvOS.app"
-            BlueprintName = "fable-reactxp-sample-tvOS"
-            ReferencedContainer = "container:fable-reactxp-sample.xcodeproj">
+            BuildableName = "ReactXPSample-tvOS.app"
+            BlueprintName = "ReactXPSample-tvOS"
+            ReferencedContainer = "container:ReactXPSample.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "fable-reactxp-sample-tvOS.app"
-            BlueprintName = "fable-reactxp-sample-tvOS"
-            ReferencedContainer = "container:fable-reactxp-sample.xcodeproj">
+            BuildableName = "ReactXPSample-tvOS.app"
+            BlueprintName = "ReactXPSample-tvOS"
+            ReferencedContainer = "container:ReactXPSample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -113,9 +113,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "fable-reactxp-sample-tvOS.app"
-            BlueprintName = "fable-reactxp-sample-tvOS"
-            ReferencedContainer = "container:fable-reactxp-sample.xcodeproj">
+            BuildableName = "ReactXPSample-tvOS.app"
+            BlueprintName = "ReactXPSample-tvOS"
+            ReferencedContainer = "container:ReactXPSample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -1,4 +1,4 @@
-package com.fable-reactxp-sample;
+package com.reactxpsample;
 
 import com.facebook.react.ReactActivity;
 
@@ -10,6 +10,6 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "fable-reactxp-sample";
+        return "RXApp";
     }
 }
