@@ -3,6 +3,7 @@
   "scripts": {
     "build": "fable-splitter src/ReactXPSample.fsproj --outDir public",
     "start": "webpack-dev-server",
+    "android": "node node_modules/react-native/local-cli/cli.js run-android",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
