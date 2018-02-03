@@ -7,5 +7,5 @@ open Fable.Helpers.ReactXP
 let init() =
     RX.App.initialize(true,true)
     RX.UserInterface.setMainView <| 
-        RX.Text[][str "Hello"]
+        RX.Text[][str "Hello13"]
 init()

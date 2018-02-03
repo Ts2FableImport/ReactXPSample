@@ -5,6 +5,7 @@ paket-files
 src/obj/
 # Xcode
 public/*.js
+public/*.map
 public/*/
 #
 build/
@@ -54,3 +55,7 @@ buck-out/
 */fastlane/report.xml
 */fastlane/Preview.html
 */fastlane/screenshots
+
+# Haul
+#
+haul-debug.log

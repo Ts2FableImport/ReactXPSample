@@ -5,3 +5,7 @@ clitool dotnet-fable
 nuget Fable.Core
 nuget Fable.Import.Browser
 nuget Fable.React
+group Build
+  source https://nuget.org/api/v2
+  framework >= net461
+  nuget FAKE
