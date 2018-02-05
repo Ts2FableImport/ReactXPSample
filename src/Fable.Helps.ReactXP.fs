@@ -6,6 +6,8 @@ open React'.React
 let private rx = Reactxp'.reactXP
 [<Import("createElement", from="reactxp")>]
 let createElement(comp: obj, props: obj, [<ParamList>] children: obj) = jsNative
+let inline ofType<'T,[<Pojo>]'P,[<Pojo>]'S when 'T :> Component<'P,'S>> (props: 'P) (children: ReactElement<obj> list): ReactElement<obj> =
+    createElement(typedefof<'T>, props, children)
 let inline domEl (``type``: obj) (props: IHTMLProp list) (children: ReactElement<obj> list): ReactElement<obj> =
     createElement(``type``,props,children)
 

@@ -285,8 +285,8 @@ module React =
         inherit ComponentLifecycle<'P, 'S>
         abstract setState: state: U2<(obj -> 'P -> U2<obj, 'S>), U2<obj, 'S>> * ?callback: (unit -> unit) -> unit
         abstract forceUpdate: ?callBack: (unit -> unit) -> unit
-        abstract render: unit -> ReactNode
-        abstract props: obj with get, set
+        abstract render: unit -> ReactElement<obj>
+        abstract props: 'P with get, set
         abstract state: obj with get, set
         abstract context: obj option with get, set
         abstract refs: obj with get, set
@@ -383,7 +383,7 @@ module React =
         /// 
         /// If false is returned, `Component#render`, `componentWillUpdate`
         /// and `componentDidUpdate` will not be called.
-        abstract shouldComponentUpdate: nextProps: obj * nextState: obj * nextContext: obj option -> bool
+        abstract shouldComponentUpdate: nextProps: 'P * nextState: obj * nextContext: obj option -> bool
         /// Called immediately before rendering when new props or state is received. Not called for the initial render.
         /// 
         /// Note: You cannot call `Component#setState` here.

@@ -8,6 +8,10 @@
     <Compile Include="React.fs" />
     <Compile Include="ReactXP.fs" />
     <Compile Include="Fable.Helps.ReactXP.fs" />    
+    <Compile Include="elmish/common.fs" />    
+    <Compile Include="elmish/commontest.fs" />    
+    <!-- <Compile Include="elmish/react.fs" />     -->
+    <!-- <Compile Include="elmish/react-native.fs" />     -->
     <Compile Include="App.fs" />
   </ItemGroup>
   <Import Project="..\.paket\Paket.Restore.targets" />

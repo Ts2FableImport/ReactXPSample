@@ -1269,7 +1269,7 @@ module ___common_Interfaces =
         [<Emit "new $0($1...)">] abstract Create: unit -> App
 
     type [<AllowNullLiteral>] UserInterface =
-        abstract setMainView: element: obj -> unit
+        abstract setMainView: element: React.ReactElement<obj> -> unit
         abstract registerRootView: viewKey: string * getComponentFunc: Function -> unit
         abstract useCustomScrollbars: ?enable: bool -> unit
         abstract isHighPixelDensityScreen: unit -> bool
