@@ -26,7 +26,6 @@ let update (msg:Msg) count =
         count - 1
 
 let view count (dispatch:Dispatch<Msg>) =
-    printf "View2"
     let onClick msg =
       fun () -> msg |> dispatch 
     RX.Text[][str "Hello2"]      

@@ -1,12 +1,12 @@
 // ts2fable 0.0.0
-module rec Reactxp'
+module rec Leisure.Import.ReactXP
 open System
 open Fable.Core
 open Fable.Import.JS
 open Fable.Import.Browser
-open React'
-open Subscribableevent'
-open Synctasks'
+open Leisure.Import.React'
+open Leisure.Import.Subscribableevent
+open Leisure.Import.Synctasks
 
 module AnimatedImpl = __Animated
 module RXInterfaces = ___common_Interfaces
@@ -1206,7 +1206,7 @@ module ___common_Types =
         | Mobile4G = 5
 
 module ___common_Interfaces =
-    module SyncTasks = Synctasks'
+    module SyncTasks = Leisure.Import.Synctasks
     module Types = ___common_Types
 
     type [<AllowNullLiteral>] ActivityIndicator =

@@ -1,5 +1,5 @@
 // ts2fable 0.0.0
-module rec Synctasks'
+module rec Leisure.Import.Synctasks
 open System
 open Fable.Core
 open Fable.Import.JS

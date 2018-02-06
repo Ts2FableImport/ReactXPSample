@@ -1,4 +1,4 @@
-namespace Elmish.ReactXP
+namespace Leisure.Elmish.ReactXP
 
 [<AutoOpen>]
 module Helpers =

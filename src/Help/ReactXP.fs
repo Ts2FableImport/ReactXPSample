@@ -1,13 +1,11 @@
-module Fable.Helpers.ReactXP
+module Leisure.Helper.ReactXP
 open Fable.Core
-open React.Props
-open React'.React
+open Leisure.Import.React'.React
+open Leisure.Helpers.React.Props
 
-let private rx = Reactxp'.reactXP
+let private rx = Leisure.Import.ReactXP.reactXP
 [<Import("createElement", from="reactxp")>]
 let createElement(comp: obj, props: obj, [<ParamList>] children: obj) = jsNative
-let inline ofType<'T,[<Pojo>]'P,[<Pojo>]'S when 'T :> Component<'P,'S>> (props: 'P) (children: ReactElement<obj> list): ReactElement<obj> =
-    createElement(typedefof<'T>, props, children)
 let inline domEl (``type``: obj) (props: IHTMLProp list) (children: ReactElement<obj> list): ReactElement<obj> =
     createElement(``type``,props,children)
 
@@ -21,4 +19,5 @@ module RX =
     let Text b c = domEl rx.Text b c
     let UserInterface = rx.UserInterface
     let App = rx.App
+    
     

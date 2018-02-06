@@ -3,15 +3,16 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Synctasks.fs" />
-    <Compile Include="Subscribableevent.fs" />
-    <Compile Include="React.fs" />
-    <Compile Include="ReactXP.fs" />
-    <Compile Include="Fable.Helps.ReactXP.fs" />    
-    <Compile Include="elmish/common.fs" />    
-    <Compile Include="elmish/commontest.fs" />    
-    <!-- <Compile Include="elmish/react.fs" />     -->
-    <!-- <Compile Include="elmish/react-native.fs" />     -->
+    <Compile Include="Import/Synctasks.fs" />
+    <Compile Include="Import/Subscribableevent.fs" />
+    <Compile Include="Import/React.fs" />
+    <Compile Include="Import/ReactDom.fs" />
+    <Compile Include="Import/ReactXP.fs" />    
+    <Compile Include="Help/React.fs" />    
+    <Compile Include="Help/ReactXP.fs" />    
+    <Compile Include="Elmish/Common.fs" />    
+    <Compile Include="Elmish/React.fs" />    
+    <Compile Include="Elmish/ReactNative.fs" />    
     <Compile Include="App.fs" />
   </ItemGroup>
   <Import Project="..\.paket\Paket.Restore.targets" />

@@ -1,5 +1,5 @@
 // ts2fable 0.0.0
-module rec Subscribableevent'
+module rec Leisure.Import.Subscribableevent
 open System
 open Fable.Core
 open Fable.Import.JS
