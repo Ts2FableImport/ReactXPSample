@@ -2,7 +2,7 @@ namespace Leisure.Elmish.ReactXP
 
 [<AutoOpen>]
 module Helpers =
-    open Fable.Helpers.React.Props
+    open Leisure.Helpers.React.Props
     open Fable.Core.JsInterop
 
     /// `Ref` callback that sets the value of an input textbox after DOM element is created.
@@ -13,7 +13,7 @@ module Helpers =
 [<RequireQualifiedAccess>]
 module Program =
     open Fable.Import.Browser
-
+    open Leisure.Import.ReactDom
     /// Setup rendering of root React component inside html element identified by placeholderId
     ///
     /// This version uses `requestAnimationFrame` to optimize rendering in scenarios with updates
@@ -31,10 +31,10 @@ module Program =
                 | _ -> ()
 
                 lastRequest <- Some (window.requestAnimationFrame (fun _ ->
-                    Fable.Import.ReactDom.render(
-                        lazyViewWith (fun x y -> obj.ReferenceEquals(x,y)) viewWithDispatch model,
-                        document.getElementById(placeholderId)
-                    )))
+                    let container = document.getElementById(placeholderId)
+                    let element = lazyViewWith (fun x y -> obj.ReferenceEquals(x,y)) viewWithDispatch model
+                    reactDom.render.Invoke(element,container) |> ignore
+                    ))
 
         { program with setState = setState }
 
@@ -43,9 +43,9 @@ module Program =
         let setState dispatch =
             let viewWithDispatch = program.view dispatch
             fun model ->
-                Fable.Import.ReactDom.render(
+                reactDom.render.Invoke(
                     lazyViewWith (fun x y -> obj.ReferenceEquals(x,y)) viewWithDispatch model,
                     document.getElementById(placeholderId)
-                )
+                ) |> ignore
 
         { program with setState = setState }

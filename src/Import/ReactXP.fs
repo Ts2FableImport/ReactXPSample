@@ -4,7 +4,7 @@ open System
 open Fable.Core
 open Fable.Import.JS
 open Fable.Import.Browser
-open Leisure.Import.React'
+open Leisure.Import.React
 open Leisure.Import.Subscribableevent
 open Leisure.Import.Synctasks
 

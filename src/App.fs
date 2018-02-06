@@ -3,9 +3,9 @@ module ReactXPSample
 open Fable.Core
 open Fable.Core.JsInterop
 open Fable.Import
-open Fable.Helpers.ReactXP
+open Leisure.Helpers.ReactXP
 open Elmish
-open Elmish.ReactXP
+open Leisure.Elmish.ReactXP
 type Model = int
 
 

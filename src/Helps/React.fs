@@ -3,7 +3,8 @@ module Leisure.Helpers.React
 open Fable.Core
 open Fable.Core.JsInterop
 open Fable.Import
-open Leisure.Import.React'
+open Leisure.Import.React
+
 module Props =
     type ICSSProp =
         interface end
@@ -28,73 +29,73 @@ module Props =
 
     type DOMAttr =
         | DangerouslySetInnerHTML of obj
-        | OnCut of (React.ClipboardEvent -> unit)
-        | OnPaste of (React.ClipboardEvent -> unit)
-        | OnCompositionEnd of (React.CompositionEvent -> unit)
-        | OnCompositionStart of (React.CompositionEvent -> unit)
-        | OnCopy of (React.ClipboardEvent -> unit)
-        | OnCompositionUpdate of (React.CompositionEvent -> unit)
-        | OnFocus of (React.FocusEvent -> unit)
-        | OnBlur of (React.FocusEvent -> unit)
-        | OnChange of (React.FormEvent -> unit)
-        | OnInput of (React.FormEvent -> unit)
-        | OnSubmit of (React.FormEvent -> unit)
-        | OnLoad of (React.SyntheticEvent -> unit)
-        | OnError of (React.SyntheticEvent -> unit)
-        | OnKeyDown of (React.KeyboardEvent -> unit)
-        | OnKeyPress of (React.KeyboardEvent -> unit)
-        | OnKeyUp of (React.KeyboardEvent -> unit)
-        | OnAbort of (React.SyntheticEvent -> unit)
-        | OnCanPlay of (React.SyntheticEvent -> unit)
-        | OnCanPlayThrough of (React.SyntheticEvent -> unit)
-        | OnDurationChange of (React.SyntheticEvent -> unit)
-        | OnEmptied of (React.SyntheticEvent -> unit)
-        | OnEncrypted of (React.SyntheticEvent -> unit)
-        | OnEnded of (React.SyntheticEvent -> unit)
-        | OnLoadedData of (React.SyntheticEvent -> unit)
-        | OnLoadedMetadata of (React.SyntheticEvent -> unit)
-        | OnLoadStart of (React.SyntheticEvent -> unit)
-        | OnPause of (React.SyntheticEvent -> unit)
-        | OnPlay of (React.SyntheticEvent -> unit)
-        | OnPlaying of (React.SyntheticEvent -> unit)
-        | OnProgress of (React.SyntheticEvent -> unit)
-        | OnRateChange of (React.SyntheticEvent -> unit)
-        | OnSeeked of (React.SyntheticEvent -> unit)
-        | OnSeeking of (React.SyntheticEvent -> unit)
-        | OnStalled of (React.SyntheticEvent -> unit)
-        | OnSuspend of (React.SyntheticEvent -> unit)
-        | OnTimeUpdate of (React.SyntheticEvent -> unit)
-        | OnVolumeChange of (React.SyntheticEvent -> unit)
-        | OnWaiting of (React.SyntheticEvent -> unit)
-        | OnClick of (React.MouseEvent -> unit)
-        | OnContextMenu of (React.MouseEvent -> unit)
-        | OnDoubleClick of (React.MouseEvent -> unit)
-        | OnDrag of (React.DragEvent -> unit)
-        | OnDragEnd of (React.DragEvent -> unit)
-        | OnDragEnter of (React.DragEvent -> unit)
-        | OnDragExit of (React.DragEvent -> unit)
-        | OnDragLeave of (React.DragEvent -> unit)
-        | OnDragOver of (React.DragEvent -> unit)
-        | OnDragStart of (React.DragEvent -> unit)
-        | OnDrop of (React.DragEvent -> unit)
-        | OnMouseDown of (React.MouseEvent -> unit)
-        | OnMouseEnter of (React.MouseEvent -> unit)
-        | OnMouseLeave of (React.MouseEvent -> unit)
-        | OnMouseMove of (React.MouseEvent -> unit)
-        | OnMouseOut of (React.MouseEvent -> unit)
-        | OnMouseOver of (React.MouseEvent -> unit)
-        | OnMouseUp of (React.MouseEvent -> unit)
-        | OnSelect of (React.SyntheticEvent -> unit)
-        | OnTouchCancel of (React.TouchEvent -> unit)
-        | OnTouchEnd of (React.TouchEvent -> unit)
-        | OnTouchMove of (React.TouchEvent -> unit)
-        | OnTouchStart of (React.TouchEvent -> unit)
-        | OnScroll of (React.UIEvent -> unit)
-        | OnWheel of (React.WheelEvent -> unit)
-        | OnAnimationStart of (React.AnimationEvent -> unit)
-        | OnAnimationEnd of (React.AnimationEvent -> unit)
-        | OnAnimationIteration of (React.AnimationEvent -> unit)
-        | OnTransitionEnd of (React.TransitionEvent -> unit)
+        | OnCut of (React.ClipboardEvent<obj> -> unit)
+        | OnPaste of (React.ClipboardEvent<obj> -> unit)
+        | OnCompositionEnd of (React.CompositionEvent<obj> -> unit)
+        | OnCompositionStart of (React.CompositionEvent<obj> -> unit)
+        | OnCopy of (React.ClipboardEvent<obj> -> unit)
+        | OnCompositionUpdate of (React.CompositionEvent<obj> -> unit)
+        | OnFocus of (React.FocusEvent<obj> -> unit)
+        | OnBlur of (React.FocusEvent<obj> -> unit)
+        | OnChange of (React.FormEvent<obj> -> unit)
+        | OnInput of (React.FormEvent<obj> -> unit)
+        | OnSubmit of (React.FormEvent<obj> -> unit)
+        | OnLoad of (React.SyntheticEvent<obj> -> unit)
+        | OnError of (React.SyntheticEvent<obj> -> unit)
+        | OnKeyDown of (React.KeyboardEvent<obj> -> unit)
+        | OnKeyPress of (React.KeyboardEvent<obj> -> unit)
+        | OnKeyUp of (React.KeyboardEvent<obj> -> unit)
+        | OnAbort of (React.SyntheticEvent<obj> -> unit)
+        | OnCanPlay of (React.SyntheticEvent<obj> -> unit)
+        | OnCanPlayThrough of (React.SyntheticEvent<obj> -> unit)
+        | OnDurationChange of (React.SyntheticEvent<obj> -> unit)
+        | OnEmptied of (React.SyntheticEvent<obj> -> unit)
+        | OnEncrypted of (React.SyntheticEvent<obj> -> unit)
+        | OnEnded of (React.SyntheticEvent<obj> -> unit)
+        | OnLoadedData of (React.SyntheticEvent<obj> -> unit)
+        | OnLoadedMetadata of (React.SyntheticEvent<obj> -> unit)
+        | OnLoadStart of (React.SyntheticEvent<obj> -> unit)
+        | OnPause of (React.SyntheticEvent<obj> -> unit)
+        | OnPlay of (React.SyntheticEvent<obj> -> unit)
+        | OnPlaying of (React.SyntheticEvent<obj> -> unit)
+        | OnProgress of (React.SyntheticEvent<obj> -> unit)
+        | OnRateChange of (React.SyntheticEvent<obj> -> unit)
+        | OnSeeked of (React.SyntheticEvent<obj> -> unit)
+        | OnSeeking of (React.SyntheticEvent<obj> -> unit)
+        | OnStalled of (React.SyntheticEvent<obj> -> unit)
+        | OnSuspend of (React.SyntheticEvent<obj> -> unit)
+        | OnTimeUpdate of (React.SyntheticEvent<obj> -> unit)
+        | OnVolumeChange of (React.SyntheticEvent<obj> -> unit)
+        | OnWaiting of (React.SyntheticEvent<obj> -> unit)
+        | OnClick of (React.MouseEvent<obj> -> unit)
+        | OnContextMenu of (React.MouseEvent<obj> -> unit)
+        | OnDoubleClick of (React.MouseEvent<obj> -> unit)
+        | OnDrag of (React.DragEvent<obj> -> unit)
+        | OnDragEnd of (React.DragEvent<obj> -> unit)
+        | OnDragEnter of (React.DragEvent<obj> -> unit)
+        | OnDragExit of (React.DragEvent<obj> -> unit)
+        | OnDragLeave of (React.DragEvent<obj> -> unit)
+        | OnDragOver of (React.DragEvent<obj> -> unit)
+        | OnDragStart of (React.DragEvent<obj> -> unit)
+        | OnDrop of (React.DragEvent<obj> -> unit)
+        | OnMouseDown of (React.MouseEvent<obj> -> unit)
+        | OnMouseEnter of (React.MouseEvent<obj> -> unit)
+        | OnMouseLeave of (React.MouseEvent<obj> -> unit)
+        | OnMouseMove of (React.MouseEvent<obj> -> unit)
+        | OnMouseOut of (React.MouseEvent<obj> -> unit)
+        | OnMouseOver of (React.MouseEvent<obj> -> unit)
+        | OnMouseUp of (React.MouseEvent<obj> -> unit)
+        | OnSelect of (React.SyntheticEvent<obj> -> unit)
+        | OnTouchCancel of (React.TouchEvent<obj> -> unit)
+        | OnTouchEnd of (React.TouchEvent<obj> -> unit)
+        | OnTouchMove of (React.TouchEvent<obj> -> unit)
+        | OnTouchStart of (React.TouchEvent<obj> -> unit)
+        | OnScroll of (React.UIEvent<obj> -> unit)
+        | OnWheel of (React.WheelEvent<obj> -> unit)
+        | OnAnimationStart of (React.AnimationEvent<obj> -> unit)
+        | OnAnimationEnd of (React.AnimationEvent<obj> -> unit)
+        | OnAnimationIteration of (React.AnimationEvent<obj> -> unit)
+        | OnTransitionEnd of (React.TransitionEvent<obj> -> unit)
         interface IHTMLProp
 
     type HTMLAttr =
@@ -720,28 +721,29 @@ module Props =
         interface ICSSProp
 
 open Props
-open Fable.Import.React
+open Leisure.Import.React.React
+open Leisure.Import.ReactDom
 
 [<Import("createElement", from="react")>]
 let createElement(comp: obj, props: obj, [<ParamList>] children: obj) = jsNative
 
 /// OBSOLETE: Use `ofType`
 [<System.Obsolete("Use ofType")>]
-let inline com<'T,[<Pojo>]'P,[<Pojo>]'S when 'T :> Component<'P,'S>> (props: 'P) (children: ReactElement list): ReactElement =
+let inline com<'T,[<Pojo>]'P,[<Pojo>]'S when 'T :> Component<'P,'S>> (props: 'P) (children: ReactElement<obj> list): ReactElement<obj> =
     createElement(typedefof<'T>, props, children)
 
 /// OBSOLETE: Use `ofFunction`
 [<System.Obsolete("Use ofFunction")>]
-let inline fn<[<Pojo>]'P> (f: 'P -> ReactElement) (props: 'P) (children: ReactElement list): ReactElement =
+let inline fn<[<Pojo>]'P> (f: 'P -> ReactElement<obj>) (props: 'P) (children: ReactElement<obj> list): ReactElement<obj> =
     createElement(f, props, children)
 
 /// Instantiate an imported React component
-let inline from<[<Pojo>]'P> (com: ComponentClass<'P>) (props: 'P) (children: ReactElement list): ReactElement =
+let inline from<[<Pojo>]'P> (com: ComponentClass<'P>) (props: 'P) (children: ReactElement<obj> list): ReactElement<obj> =
     createElement(com, props, children)
 
 /// Instantiate a component from a type inheriting React.Component
 /// Example: `ofType<MyComponent,_,_> { myProps = 5 } []`
-let inline ofType<'T,[<Pojo>]'P,[<Pojo>]'S when 'T :> Component<'P,'S>> (props: 'P) (children: ReactElement list): ReactElement =
+let inline ofType<'T,[<Pojo>]'P,[<Pojo>]'S when 'T :> Component<'P,'S>> (props: 'P) (children: ReactElement<obj> list): ReactElement<obj> =
     createElement(typedefof<'T>, props, children)
 
 /// Instantiate a stateless component from a function
@@ -750,56 +752,56 @@ let inline ofType<'T,[<Pojo>]'P,[<Pojo>]'S when 'T :> Component<'P,'S>> (props: 
 /// let Hello (p: MyProps) = div [] [ofString ("Hello " + p.name)]
 /// ofFunction Hello { name = "Maxime" } []
 /// ```
-let inline ofFunction<[<Pojo>]'P> (f: 'P -> ReactElement) (props: 'P) (children: ReactElement list): ReactElement =
+let inline ofFunction<[<Pojo>]'P> (f: 'P -> ReactElement<obj>) (props: 'P) (children: ReactElement<obj> list): ReactElement<obj> =
     createElement(f, props, children)
 
 /// Instantiate an imported React component. The first two arguments must be string literals, "default" can be used for the first one.
 /// Example: `ofImport "Map" "leaflet" { x = 10; y = 50 } []`
-let inline ofImport<[<Pojo>]'P> (importMember: string) (importPath: string) (props: 'P) (children: ReactElement list): ReactElement =
+let inline ofImport<[<Pojo>]'P> (importMember: string) (importPath: string) (props: 'P) (children: ReactElement<obj> list): ReactElement<obj> =
     createElement(import importMember importPath, props, children)
 
 /// Alias of `ofString`
-let inline str (s: string): ReactElement = unbox s
+let inline str (s: string): ReactElement<obj> = unbox s
 
 /// Cast a string to a React element (erased in runtime)
-let inline ofString (s: string): ReactElement = unbox s
+let inline ofString (s: string): ReactElement<obj> = unbox s
 
 /// OBSOLETE: Use `ofOption`
 [<System.Obsolete("Use ofOption")>]
-let inline opt (o: ReactElement option): ReactElement =
+let inline opt (o: ReactElement<obj> option): ReactElement<obj> =
     match o with Some o -> o | None -> null
 
 /// Cast an option value to a React element (erased in runtime)
-let inline ofOption (o: ReactElement option): ReactElement =
+let inline ofOption (o: ReactElement<obj> option): ReactElement<obj> =
     match o with Some o -> o | None -> null // Option.toObj(o)
 
 /// Cast an int to a React element (erased in runtime)
-let inline ofInt (i: int): ReactElement = unbox i
+let inline ofInt (i: int): ReactElement<obj> = unbox i
 
 /// Cast a float to a React element (erased in runtime)
-let inline ofFloat (f: float): ReactElement = unbox f
+let inline ofFloat (f: float): ReactElement<obj> = unbox f
 
 /// Returns a list **from .render() method**
-let inline ofList (els: ReactElement list): ReactElement = unbox(List.toArray els)
+let inline ofList (els: ReactElement<obj> list): ReactElement<obj> = unbox(List.toArray els)
 
 /// Returns an array **from .render() method**
-let inline ofArray (els: ReactElement array): ReactElement = unbox els
+let inline ofArray (els: ReactElement<obj> array): ReactElement<obj> = unbox els
 
 /// Instantiate a DOM React element
-let inline domEl (tag: string) (props: IHTMLProp list) (children: ReactElement list): ReactElement =
+let inline domEl (tag: string) (props: IHTMLProp list) (children: ReactElement<obj> list): ReactElement<obj> =
     createElement(tag, keyValueList CaseRules.LowerFirst props, children)
 
 /// Instantiate a DOM React element (void)
-let inline voidEl (tag: string) (props: IHTMLProp list) : ReactElement =
+let inline voidEl (tag: string) (props: IHTMLProp list) : ReactElement<obj> =
     createElement(tag, keyValueList CaseRules.LowerFirst props, [])
 
 /// Instantiate an SVG React element
-let inline svgEl (tag: string) (props: IProp list) (children: ReactElement list): ReactElement =
+let inline svgEl (tag: string) (props: IProp list) (children: ReactElement<obj> list): ReactElement<obj> =
     createElement(tag, keyValueList CaseRules.LowerFirst props, children)
 
 /// Instantiate a React fragment
-let inline fragment (props: IFragmentProp list) (children: ReactElement list): ReactElement =
-    createElement(typedefof<Fragment>, keyValueList CaseRules.LowerFirst props, children)
+let inline fragment (props: IFragmentProp list) (children: ReactElement<obj> list): ReactElement<obj> =
+    createElement(typedefof<ComponentType>, keyValueList CaseRules.LowerFirst props, children)
 
 // Standard elements
 let inline a b c = domEl "a" b c
@@ -948,12 +950,13 @@ let classBaseList std classes =
 let classList classes = classBaseList "" classes
 
 /// Finds a DOM element by its ID and mounts the React element there
-let inline mountById (domElId: string) (reactEl: ReactElement): unit =
-    ReactDom.render(reactEl, Browser.document.getElementById(domElId))
+let inline mountById (domElId: string) (reactEl: ReactElement<obj>): unit =
+    let element = Browser.document.getElementById(domElId)
+    reactDom.render.Invoke(reactEl,element) |> ignore
 
 /// Finds the first DOM element matching a CSS selector and mounts the React element there
-let inline mountBySelector (domElSelector: string) (reactEl: ReactElement): unit =
-    ReactDom.render(reactEl, Browser.document.querySelector(domElSelector))
+let inline mountBySelector (domElSelector: string) (reactEl: ReactElement<obj>): unit =
+    reactDom.render.Invoke(reactEl, Browser.document.querySelector(domElSelector)) |> ignore
 
 // Helpers for ReactiveComponents (see #44)
 module ReactiveComponents =
@@ -961,7 +964,7 @@ module ReactiveComponents =
         key: string
         props: 'P
         update: 'Msg -> 'S -> 'S
-        view: Model<'P, 'S> -> ('Msg->unit) -> ReactElement
+        view: Model<'P, 'S> -> ('Msg->unit) -> ReactElement<obj>
         init: 'P -> 'S
     }
 
@@ -973,13 +976,13 @@ module ReactiveComponents =
         key: string
         props: 'P
         state: 'S
-        children: ReactElement[]
+        children: ReactElement<obj>[]
     }
 
 open ReactiveComponents
 
 type ReactiveCom<'P, 'S, 'Msg>(initProps) =
-    inherit Component<Props<'P, 'S, 'Msg>, State<'S>>(initProps)
+    inherit ComponentAbstract<Props<'P, 'S, 'Msg>, State<'S>>(initProps)
     do base.setInitState { value = initProps.init(initProps.props) }
 
     override this.render() =
@@ -1002,10 +1005,14 @@ type ReactiveCom<'P, 'S, 'Msg>(initProps) =
 let reactiveCom<'P, 'S, 'Msg>
         (init: 'P -> 'S)
         (update: 'Msg -> 'S -> 'S)
-        (view: Model<'P, 'S> -> ('Msg->unit) -> ReactElement)
+        (view: Model<'P, 'S> -> ('Msg->unit) -> ReactElement<obj>)
         (key: string)
         (props: 'P)
-        (children: ReactElement list): ReactElement =
-    ofType<ReactiveCom<'P, 'S, 'Msg>, Props<'P, 'S, 'Msg>, State<'S>>
-        { key=key; props=props; update=update; view=view; init=init }
-        children
+        (children: ReactElement<obj> list): ReactElement<obj> =
+    let t =
+        let c = { key=key; props=props; update=update; view=view; init=init }
+        let l = children
+        ofType<ReactiveCom<'P, 'S, 'Msg>, Props<'P, 'S, 'Msg>, State<'S>>
+            { key=key; props=props; update=update; view=view; init=init }
+            children
+    jsNative

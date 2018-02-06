@@ -2,7 +2,8 @@ namespace Leisure.Elmish.ReactXP
 
 open Fable.Core
 open Elmish
-open Leisure.Import.React'.React
+open Leisure.Import.React.React
+open Leisure.Helpers.React
 
 type [<Pojo>] LazyProps<'model> = {
     model:'model
@@ -10,7 +11,6 @@ type [<Pojo>] LazyProps<'model> = {
     equal:'model->'model->bool
 }
 module Components =
-    JsInterop.importAll "./react-native.fs"
 
     type LazyView<'model>(props) =
         inherit ComponentAbstract<LazyProps<'model>,obj>(props)
@@ -31,11 +31,11 @@ module Common =
     let lazyViewWith (equal:'model->'model->bool)
                      (view:'model->ReactElement<obj>)
                      (state:'model) =
-        Components.LazyView<_>(
+        ofType<Components.LazyView<_>,_,_>
             { render = fun () -> view state
               equal = equal
-              model = state 
-            })
+              model = state }
+            []
 
     /// Avoid rendering the view unless the model has changed.
     /// equal: function to compare the previous and the new states
@@ -57,13 +57,12 @@ module Common =
                       (view:'msg Dispatch->_->_->ReactElement<obj>)
                       (dispatch:'msg Dispatch) =
         let view' = view dispatch
-        fun state1 state2 -> Components.LazyView<_>(
-            { 
-                render = fun () -> view' state1 state2
-                equal = equal
-                model = (state1,state2)
-            }
-        )        
+        fun state1 state2 ->
+            ofType<Components.LazyView<_>,_,_>
+                { render = fun () -> view' state1 state2
+                  equal = equal
+                  model = (state1,state2) }
+                []
    /// Avoid rendering the view unless the model has changed.
    /// view: function of model to render the view
     let lazyView (view:'model->ReactElement<obj>) =
@@ -80,13 +79,3 @@ module Common =
         lazyView3With (=) view 
 
 
-[<RequireQualifiedAccess>]
-module Program =
-
-    /// Setup rendering of root ReactNative component
-    let withReactXP (program:Program<_,_,_,_>) =
-        let render dispatch =
-            let viewWithDispatch = program.view dispatch
-            ignore
-            
-        { program with setState = render }

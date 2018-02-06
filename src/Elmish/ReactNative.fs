@@ -2,7 +2,7 @@ namespace Leisure.Elmish.ReactXP
 
 open Fable.Core
 open Elmish
-open Leisure.Import.React'.React
+open Leisure.Import.React.React
 
 module Components =
     type [<Pojo>] AppState = {

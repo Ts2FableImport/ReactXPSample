@@ -1,9 +1,11 @@
 // ts2fable 0.0.0
-module rec Leisure.Import.React'
+module rec Leisure.Import.React
 open System
 open Fable.Core
 open Fable.Import.JS
 open Fable.Import.Browser
+open React
+open React
 
 let [<Import("*","react")>] react: React.IExports = jsNative
 
@@ -283,11 +285,11 @@ module React =
 
     type [<AllowNullLiteral>] Component<'P, 'S> =
         inherit ComponentLifecycle<'P, 'S>
-        abstract setState: state: U2<(obj -> 'P -> U2<obj, 'S>), U2<obj, 'S>> * ?callback: (unit -> unit) -> unit
+        abstract setState: state: 'S * ?callback: (unit -> unit) -> unit
         abstract forceUpdate: ?callBack: (unit -> unit) -> unit
         abstract render: unit -> ReactElement<obj>
         abstract props: 'P with get, set
-        abstract state: obj with get, set
+        abstract state: 'S with get, set
         abstract context: obj option with get, set
         abstract refs: obj with get, set
 
@@ -295,60 +297,22 @@ module React =
         [<Emit "new $0($1...)">] abstract Create: props: 'P * ?context: obj option -> Component<'P, 'S>
     
     type [<AbstractClass; Import("Component", "react")>] ComponentAbstract<'P, 'S>(props: 'P) =
-        [<Emit("$0.props")>]
-        member __.props: 'P = jsNative
-
-        [<Emit("Array.prototype.concat($0.props.children || [])")>]
-        member __.children: ReactElement<obj> array = jsNative
-
-        [<Emit("$0.state")>]
-        member __.state: 'S = jsNative
-
-        /// ATTENTION: Within the constructor, use `setInitState`
-        /// Enqueues changes to the component state and tells React that this component and its children need to be re-rendered with the updated state. This is the primary method you use to update the user interface in response to event handlers and server responses.
-        /// Think of setState() as a request rather than an immediate command to update the component. For better perceived performance, React may delay it, and then update several components in a single pass. React does not guarantee that the state changes are applied immediately.
-        /// setState() does not always immediately update the component. It may batch or defer the update until later. This makes reading this.state right after calling setState() a potential pitfall. Instead, use componentDidUpdate or a setState callback (setState(updater, callback)), either of which are guaranteed to fire after the update has been applied. If you need to set the state based on the previous state, read about the updater argument below.
-        /// setState() will always lead to a re-render unless shouldComponentUpdate() returns false. If mutable objects are being used and conditional rendering logic cannot be implemented in shouldComponentUpdate(), calling setState() only when the new state differs from the previous state will avoid unnecessary re-renders.
-        [<Emit("$0.setState($1)")>]
-        member __.setState(value: 'S): unit = jsNative
-
-        /// Overload of `setState` accepting updater function with the signature: `(prevState, props) => stateChange`
-        /// prevState is a reference to the previous state. It should not be directly mutated. Instead, changes should be represented by building a new object based on the input from prevState and props.
-        /// Both prevState and props received by the updater function are guaranteed to be up-to-date. The output of the updater is shallowly merged with prevState.
-        [<Emit("$0.setState($1)")>]
-        member __.setState(updater: 'S->'P->'S): unit = jsNative
-
-        /// This method can only be called in the constructor
+        member this.props = (this :> Component<'P,'S>).props
+        member this.state = (this :> Component<'P,'S>).state
+        member this.setState = (this :> Component<'P,'S>).setState
+        abstract render: unit -> ReactElement<obj>
         [<Emit("this.state = $1")>]
         member __.setInitState(value: 'S): unit = jsNative
-
-        /// By default, when your component’s state or props change, your component will re-render. If your render() method depends on some other data, you can tell React that the component needs re-rendering by calling forceUpdate().
-        /// Calling forceUpdate() will cause render() to be called on the component, skipping shouldComponentUpdate(). This will trigger the normal lifecycle methods for child components, including the shouldComponentUpdate() method of each child. React will still only update the DOM if the markup changes.
-        /// Normally you should try to avoid all uses of forceUpdate() and only read from this.props and this.state in render().
-        [<Emit("$0.forceUpdate($1)")>]
-        member __.forceUpdate(?callBack: unit->unit): unit = jsNative
-
-        [<Emit("$0.isMounted()")>]
-        member __.isMounted(): bool = jsNative
-
+        [<Emit("Array.prototype.concat($0.props.children || [])")>]
+        member __.children: ReactElement<obj> array = jsNative
         /// Invoked immediately before mounting occurs. It is called before render(), therefore calling setState() synchronously in this method will not trigger an extra rendering. Generally, we recommend using the constructor() instead.
         /// Avoid introducing any side-effects or subscriptions in this method. For those use cases, use componentDidMount() instead.
         /// This is the only lifecycle hook called on server rendering.
         abstract componentWillMount: unit -> unit
-        default __.componentWillMount () = ()
-
-        /// Invoked immediately after a component is mounted. Initialization that requires DOM nodes should go here. If you need to load data from a remote endpoint, this is a good place to instantiate the network request.
-        /// This method is a good place to set up any subscriptions. If you do that, don’t forget to unsubscribe in componentWillUnmount().
-        /// Calling setState() in this method will trigger an extra rendering, but it is guaranteed to flush during the same tick. This guarantees that even though the render() will be called twice in this case, the user won’t see the intermediate state. Use this pattern with caution because it often causes performance issues. It can, however, be necessary for cases like modals and tooltips when you need to measure a DOM node before rendering something that depends on its size or position.
-        abstract componentDidMount: unit -> unit
-        default __.componentDidMount () = ()
-
-        /// Invoked before a mounted component receives new props. If you need to update the state in response to prop changes (for example, to reset it), you may compare this.props and nextProps and perform state transitions using this.setState() in this method.
-        /// Note that React may call this method even if the props have not changed, so make sure to compare the current and next values if you only want to handle changes. This may occur when the parent component causes your component to re-render.
-        /// React doesn’t call componentWillReceiveProps() with initial props during mounting. It only calls this method if some of component’s props may update. Calling this.setState() generally doesn’t trigger componentWillReceiveProps().
-        abstract componentWillReceiveProps: nextProps: 'P -> unit
-        default __.componentWillReceiveProps (_) = ()
-
+        default this.componentWillMount () = (this :> Component<'P,'S>).componentWillMount()   
+        /// Invoked immediately before a component is unmounted and destroyed. Perform any necessary cleanup in this method, such as invalidating timers, canceling network requests, or cleaning up any subscriptions that were created in componentDidMount().
+        abstract componentWillUnmount: unit -> unit
+        default this.componentWillUnmount () = (this :> Component<'P,'S>).componentWillUnmount()
         /// Use shouldComponentUpdate() to let React know if a component’s output is not affected by the current change in state or props. The default behavior is to re-render on every state change, and in the vast majority of cases you should rely on the default behavior.
         /// shouldComponentUpdate() is invoked before rendering when new props or state are being received. Defaults to true. This method is not called for the initial render or when forceUpdate() is used.
         /// Returning false does not prevent child components from re-rendering when their state changes.
@@ -356,38 +320,93 @@ module React =
         /// If you determine a specific component is slow after profiling, you may change it to inherit from React.PureComponent which implements shouldComponentUpdate() with a shallow prop and state comparison. If you are confident you want to write it by hand, you may compare this.props with nextProps and this.state with nextState and return false to tell React the update can be skipped.
         /// We do not recommend doing deep equality checks or using JSON.stringify() in shouldComponentUpdate(). It is very inefficient and will harm performance.
         abstract shouldComponentUpdate: nextProps: 'P * nextState: 'S -> bool
-        default __.shouldComponentUpdate (_, _) = true
+        default __.shouldComponentUpdate (_, _) = true                 
 
-        /// Invoked immediately before rendering when new props or state are being received. Use this as an opportunity to perform preparation before an update occurs. This method is not called for the initial render.
-        /// Note that you cannot call this.setState() here; nor should you do anything else (e.g. dispatch a Redux action) that would trigger an update to a React component before componentWillUpdate() returns.
-        /// If you need to update state in response to props changes, use componentWillReceiveProps() instead.
-        /// > componentWillUpdate() will not be invoked if shouldComponentUpdate() returns false.
-        abstract componentWillUpdate: nextProps: 'P * nextState: 'S -> unit
-        default __.componentWillUpdate (_, _) = ()
+        /// Invoked immediately after a component is mounted. Initialization that requires DOM nodes should go here. If you need to load data from a remote endpoint, this is a good place to instantiate the network request.
+        /// This method is a good place to set up any subscriptions. If you do that, don’t forget to unsubscribe in componentWillUnmount().
+        /// Calling setState() in this method will trigger an extra rendering, but it is guaranteed to flush during the same tick. This guarantees that even though the render() will be called twice in this case, the user won’t see the intermediate state. Use this pattern with caution because it often causes performance issues. It can, however, be necessary for cases like modals and tooltips when you need to measure a DOM node before rendering something that depends on its size or position.
+        abstract componentDidMount: unit -> unit
+        default this.componentDidMount () = (this :> Component<'P,'S>).componentDidMount()    
+        
+        interface Component<'P,'S> with 
+            [<Emit("$0.context")>]
+            member val context = jsNative with get,set
+            [<Emit("$0.ref")>]
+            member val refs = jsNative with get,set            
+            [<Emit("$0.props")>]
+            member val props: 'P = jsNative with get,set
 
-        /// Invoked immediately after updating occurs. This method is not called for the initial render.
-        /// Use this as an opportunity to operate on the DOM when the component has been updated. This is also a good place to do network requests as long as you compare the current props to previous props (e.g. a network request may not be necessary if the props have not changed).
-        /// > componentDidUpdate() will not be invoked if shouldComponentUpdate() returns false.
-        abstract componentDidUpdate: prevProps: 'P * prevState: 'S -> unit
-        default __.componentDidUpdate (_, _) = ()
+            // [<Emit("Array.prototype.concat($0.props.children || [])")>]
+            // member __.children: ReactElement<obj> array = jsNative
 
-        /// Invoked immediately before a component is unmounted and destroyed. Perform any necessary cleanup in this method, such as invalidating timers, canceling network requests, or cleaning up any subscriptions that were created in componentDidMount().
-        abstract componentWillUnmount: unit -> unit
-        default __.componentWillUnmount () = ()
+            [<Emit("$0.state")>]
+            member  val state = jsNative with get,set
 
-        /// Error boundaries are React components that catch JavaScript errors anywhere in their child component tree, log those errors, and display a fallback UI instead of the component tree that crashed. Error boundaries catch errors during rendering, in lifecycle methods, and in constructors of the whole tree below them.
-        /// A class component becomes an error boundary if it defines this lifecycle method. Calling setState() in it lets you capture an unhandled JavaScript error in the below tree and display a fallback UI. Only use error boundaries for recovering from unexpected exceptions; don’t try to use them for control flow.
-        /// For more details, see [Error Handling in React 16](https://reactjs.org/blog/2017/07/26/error-handling-in-react-16.html).
-        /// > Error boundaries only catch errors in the components below them in the tree. An error boundary can’t catch an error within itself.
-        abstract componentDidCatch: error: Exception * info: obj -> unit
-        default __.componentDidCatch (_, _) = ()
-
-        /// This function should be pure, meaning that it does not modify component state, it returns the same result each time it’s invoked, and it does not directly interact with the browser. If you need to interact with the browser, perform your work in componentDidMount() or the other lifecycle methods instead. Keeping render() pure makes components easier to think about.
-        /// > render() will not be invoked if shouldComponentUpdate() returns false.
-        abstract render: unit -> ReactElement<obj>
-        [<Emit "new Component($0...)">] static member Create (props: 'P,?context: obj option) :Component<'P, 'S> = jsNative
+            /// ATTENTION: Within the constructor, use `setInitState`
+            /// Enqueues changes to the component state and tells React that this component and its children need to be re-rendered with the updated state. This is the primary method you use to update the user interface in response to event handlers and server responses.
+            /// Think of setState() as a request rather than an immediate command to update the component. For better perceived performance, React may delay it, and then update several components in a single pass. React does not guarantee that the state changes are applied immediately.
+            /// setState() does not always immediately update the component. It may batch or defer the update until later. This makes reading this.state right after calling setState() a potential pitfall. Instead, use componentDidUpdate or a setState callback (setState(updater, callback)), either of which are guaranteed to fire after the update has been applied. If you need to set the state based on the previous state, read about the updater argument below.
+            /// setState() will always lead to a re-render unless shouldComponentUpdate() returns false. If mutable objects are being used and conditional rendering logic cannot be implemented in shouldComponentUpdate(), calling setState() only when the new state differs from the previous state will avoid unnecessary re-renders.
+            [<Emit("$0.setState($1)")>]
+            member __.setState(value,_): unit = jsNative
 
 
+            /// By default, when your component’s state or props change, your component will re-render. If your render() method depends on some other data, you can tell React that the component needs re-rendering by calling forceUpdate().
+            /// Calling forceUpdate() will cause render() to be called on the component, skipping shouldComponentUpdate(). This will trigger the normal lifecycle methods for child components, including the shouldComponentUpdate() method of each child. React will still only update the DOM if the markup changes.
+            /// Normally you should try to avoid all uses of forceUpdate() and only read from this.props and this.state in render().
+            [<Emit("$0.forceUpdate($1)")>]
+            member __.forceUpdate(?callBack: unit->unit): unit = jsNative
+
+
+            /// Invoked immediately before mounting occurs. It is called before render(), therefore calling setState() synchronously in this method will not trigger an extra rendering. Generally, we recommend using the constructor() instead.
+            /// Avoid introducing any side-effects or subscriptions in this method. For those use cases, use componentDidMount() instead.
+            /// This is the only lifecycle hook called on server rendering.
+            // abstract componentWillMount: unit -> unit
+            member __.componentWillMount () = ()
+
+            /// Invoked immediately after a component is mounted. Initialization that requires DOM nodes should go here. If you need to load data from a remote endpoint, this is a good place to instantiate the network request.
+            /// This method is a good place to set up any subscriptions. If you do that, don’t forget to unsubscribe in componentWillUnmount().
+            /// Calling setState() in this method will trigger an extra rendering, but it is guaranteed to flush during the same tick. This guarantees that even though the render() will be called twice in this case, the user won’t see the intermediate state. Use this pattern with caution because it often causes performance issues. It can, however, be necessary for cases like modals and tooltips when you need to measure a DOM node before rendering something that depends on its size or position.
+            member __.componentDidMount () = ()
+
+            /// Invoked before a mounted component receives new props. If you need to update the state in response to prop changes (for example, to reset it), you may compare this.props and nextProps and perform state transitions using this.setState() in this method.
+            /// Note that React may call this method even if the props have not changed, so make sure to compare the current and next values if you only want to handle changes. This may occur when the parent component causes your component to re-render.
+            /// React doesn’t call componentWillReceiveProps() with initial props during mounting. It only calls this method if some of component’s props may update. Calling this.setState() generally doesn’t trigger componentWillReceiveProps().
+            member __.componentWillReceiveProps (_,_) = ()
+
+            /// Use shouldComponentUpdate() to let React know if a component’s output is not affected by the current change in state or props. The default behavior is to re-render on every state change, and in the vast majority of cases you should rely on the default behavior.
+            /// shouldComponentUpdate() is invoked before rendering when new props or state are being received. Defaults to true. This method is not called for the initial render or when forceUpdate() is used.
+            /// Returning false does not prevent child components from re-rendering when their state changes.
+            /// Currently, if shouldComponentUpdate() returns false, then componentWillUpdate(), render(), and componentDidUpdate() will not be invoked. Note that in the future React may treat shouldComponentUpdate() as a hint rather than a strict directive, and returning false may still result in a re-rendering of the component.
+            /// If you determine a specific component is slow after profiling, you may change it to inherit from React.PureComponent which implements shouldComponentUpdate() with a shallow prop and state comparison. If you are confident you want to write it by hand, you may compare this.props with nextProps and this.state with nextState and return false to tell React the update can be skipped.
+            /// We do not recommend doing deep equality checks or using JSON.stringify() in shouldComponentUpdate(). It is very inefficient and will harm performance.
+            member __.shouldComponentUpdate (_, _,_) = true
+
+            /// Invoked immediately before rendering when new props or state are being received. Use this as an opportunity to perform preparation before an update occurs. This method is not called for the initial render.
+            /// Note that you cannot call this.setState() here; nor should you do anything else (e.g. dispatch a Redux action) that would trigger an update to a React component before componentWillUpdate() returns.
+            /// If you need to update state in response to props changes, use componentWillReceiveProps() instead.
+            /// > componentWillUpdate() will not be invoked if shouldComponentUpdate() returns false.
+            member __.componentWillUpdate (_, _, _) = ()
+
+            /// Invoked immediately after updating occurs. This method is not called for the initial render.
+            /// Use this as an opportunity to operate on the DOM when the component has been updated. This is also a good place to do network requests as long as you compare the current props to previous props (e.g. a network request may not be necessary if the props have not changed).
+            /// > componentDidUpdate() will not be invoked if shouldComponentUpdate() returns false.
+            member __.componentDidUpdate (_, _, _) = ()
+
+            /// Invoked immediately before a component is unmounted and destroyed. Perform any necessary cleanup in this method, such as invalidating timers, canceling network requests, or cleaning up any subscriptions that were created in componentDidMount().
+            member __.componentWillUnmount () = ()
+
+            /// Error boundaries are React components that catch JavaScript errors anywhere in their child component tree, log those errors, and display a fallback UI instead of the component tree that crashed. Error boundaries catch errors during rendering, in lifecycle methods, and in constructors of the whole tree below them.
+            /// A class component becomes an error boundary if it defines this lifecycle method. Calling setState() in it lets you capture an unhandled JavaScript error in the below tree and display a fallback UI. Only use error boundaries for recovering from unexpected exceptions; don’t try to use them for control flow.
+            /// For more details, see [Error Handling in React 16](https://reactjs.org/blog/2017/07/26/error-handling-in-react-16.html).
+            /// > Error boundaries only catch errors in the components below them in the tree. An error boundary can’t catch an error within itself.
+            member __.componentDidCatch (_, _) = ()
+
+            /// This function should be pure, meaning that it does not modify component state, it returns the same result each time it’s invoked, and it does not directly interact with the browser. If you need to interact with the browser, perform your work in componentDidMount() or the other lifecycle methods instead. Keeping render() pure makes components easier to think about.
+            /// > render() will not be invoked if shouldComponentUpdate() returns false.
+            [<Emit("$0.render")>]
+            member __.render() = jsNative
+    
     type PureComponent<'S> =
         PureComponent<obj, 'S>
 
@@ -2590,7 +2609,7 @@ module React =
         abstract var: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement> with get, set
         abstract video: DetailedHTMLFactory<VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement> with get, set
         abstract wbr: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement> with get, set
-        abstract webview: DetailedHTMLFactory<WebViewHTMLAttributes<HTMLWebViewElement>, HTMLWebViewElement> with get, set
+        abstract webview: DetailedHTMLFactory<WebViewHTMLAttributes<obj>, obj> with get, set
 
     type [<AllowNullLiteral>] ReactSVG =
         abstract animate: SVGFactory with get, set
@@ -2852,7 +2871,7 @@ module Global =
             abstract var: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> with get, set
             abstract video: React.DetailedHTMLProps<React.VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement> with get, set
             abstract wbr: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> with get, set
-            abstract webview: React.DetailedHTMLProps<React.WebViewHTMLAttributes<HTMLWebViewElement>, HTMLWebViewElement> with get, set
+            abstract webview: React.DetailedHTMLProps<React.WebViewHTMLAttributes<obj>, obj> with get, set
             abstract svg: React.SVGProps<SVGSVGElement> with get, set
             abstract animate: React.SVGProps<SVGElement> with get, set
             abstract animateTransform: React.SVGProps<SVGElement> with get, set
@@ -2909,380 +2928,3 @@ module Global =
             abstract ``use``: React.SVGProps<SVGUseElement> with get, set
             abstract view: React.SVGProps<SVGViewElement> with get, set
 
-type [<AllowNullLiteral>] Event =
-    interface end
-
-type [<AllowNullLiteral>] AnimationEvent =
-    inherit Event
-
-type [<AllowNullLiteral>] ClipboardEvent =
-    inherit Event
-
-type [<AllowNullLiteral>] CompositionEvent =
-    inherit Event
-
-type [<AllowNullLiteral>] DragEvent =
-    inherit Event
-
-type [<AllowNullLiteral>] FocusEvent =
-    inherit Event
-
-type [<AllowNullLiteral>] KeyboardEvent =
-    inherit Event
-
-type [<AllowNullLiteral>] MouseEvent =
-    inherit Event
-
-type [<AllowNullLiteral>] TouchEvent =
-    inherit Event
-
-type [<AllowNullLiteral>] TransitionEvent =
-    inherit Event
-
-type [<AllowNullLiteral>] UIEvent =
-    inherit Event
-
-type [<AllowNullLiteral>] WheelEvent =
-    inherit Event
-
-type [<AllowNullLiteral>] EventTarget =
-    interface end
-
-type [<AllowNullLiteral>] Document =
-    interface end
-
-type [<AllowNullLiteral>] DataTransfer =
-    interface end
-
-type [<AllowNullLiteral>] StyleMedia =
-    interface end
-
-type [<AllowNullLiteral>] Element =
-    interface end
-
-type [<AllowNullLiteral>] HTMLElement =
-    inherit Element
-
-type [<AllowNullLiteral>] HTMLAnchorElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLAreaElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLAudioElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLBaseElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLBodyElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLBRElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLButtonElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLCanvasElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLDivElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLDListElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLEmbedElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLFieldSetElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLFormElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLHeadingElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLHeadElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLHRElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLTableColElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLDataListElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLHtmlElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLIFrameElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLImageElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLInputElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLModElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLLabelElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLLegendElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLLIElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLLinkElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLMapElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLMetaElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLObjectElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLOListElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLOptGroupElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLOptionElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLParagraphElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLParamElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLPreElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLProgressElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLQuoteElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLScriptElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLSelectElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLSourceElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLSpanElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLStyleElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLTableElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLTableSectionElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLTableDataCellElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLTextAreaElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLTableHeaderCellElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLTitleElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLTableRowElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLTrackElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLUListElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLVideoElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] HTMLWebViewElement =
-    inherit HTMLElement
-
-type [<AllowNullLiteral>] SVGElement =
-    inherit Element
-
-type [<AllowNullLiteral>] SVGSVGElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGCircleElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGClipPathElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGDefsElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGDescElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGEllipseElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGFEBlendElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGFEColorMatrixElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGFEComponentTransferElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGFECompositeElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGFEConvolveMatrixElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGFEDiffuseLightingElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGFEDisplacementMapElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGFEDistantLightElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGFEFloodElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGFEFuncAElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGFEFuncBElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGFEFuncGElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGFEFuncRElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGFEGaussianBlurElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGFEImageElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGFEMergeElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGFEMergeNodeElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGFEMorphologyElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGFEOffsetElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGFEPointLightElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGFESpecularLightingElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGFESpotLightElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGFETileElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGFETurbulenceElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGFilterElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGForeignObjectElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGGElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGImageElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGLineElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGLinearGradientElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGMarkerElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGMaskElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGMetadataElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGPathElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGPatternElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGPolygonElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGPolylineElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGRadialGradientElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGRectElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGStopElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGSwitchElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGSymbolElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGTextElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGTextPathElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGTSpanElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGUseElement =
-    inherit SVGElement
-
-type [<AllowNullLiteral>] SVGViewElement =
-    inherit SVGElement
