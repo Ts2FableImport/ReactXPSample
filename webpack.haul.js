@@ -17,7 +17,7 @@ console.log("Bundling for " + (isProduction ? "production" : "development") + ".
 
 module.exports = ({ platform }, { module, resolve }) => ({
   devtool: "eval-source-map",
-  entry: resolvePath('./src/ReactXPSample.fsproj'),
+  entry: resolvePath('./src/native/ReactXPSample.Native.fsproj'),
   module: {
     ...module,
     rules: [
