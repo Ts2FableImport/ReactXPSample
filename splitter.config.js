@@ -8,7 +8,7 @@ function resolve(filePath) {
 
 
 module.exports = {
-  entry: resolve("docs/native/ReactXPSample.Native.fsproj"),
+  entry: resolve("docs/native/Docs.Native.fsproj"),
   outDir: "out",
   babel: fableUtils.resolveBabelOptions({
     plugins: ["transform-es2015-modules-commonjs"],

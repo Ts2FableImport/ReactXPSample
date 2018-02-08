@@ -8,9 +8,9 @@ out/*
 public/*.js
 public/*.map
 public/*/
-docs/*.js
 docs/*.map
-docs/*/
+docs/*/obj
+docs/*/bin
 #
 build/
 *.pbxuser

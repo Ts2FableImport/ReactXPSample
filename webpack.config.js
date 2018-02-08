@@ -22,7 +22,7 @@ console.log("Bundling for " + (isProduction ? "production" : "development") + ".
 
 module.exports = {
   devtool: "source-map",
-  entry: resolve('./docs/web/ReactXPSample.Web.fsproj'),
+  entry: resolve('./docs/web/Docs.Web.fsproj'),
   output: {
     filename: 'bundle.js',
     path: resolve('./docs'),
