@@ -25,7 +25,7 @@ module.exports = {
   entry: resolve('./docs/web/Docs.Web.fsproj'),
   output: {
     filename: 'bundle.js',
-    path: resolve('./docs'),
+    path: resolve('./docs/out'),
   },
   resolve: {
     modules: [resolve("./node_modules/")]
