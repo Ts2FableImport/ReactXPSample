@@ -1,6 +1,6 @@
 // include Fake libs
 #r "./packages/build/FAKE/tools/FakeLib.dll"
-#r "System.IO.Compression.FileSystem"
+#r "System.IO.Compression.FileSystem" 
 
 open System
 open System.IO
