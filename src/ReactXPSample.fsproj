@@ -10,11 +10,9 @@
     <Compile Include="Imports/ReactXP.fs" />
     <Compile Include="Helps/React.fs" />
     <Compile Include="Helps/ReactXP.fs" />
-    <Compile Include="Elmish/CommonTest.fs" />
     <Compile Include="Elmish/Common.fs" />
     <Compile Include="Elmish/React.fs" />
     <Compile Include="Elmish/ReactNative.fs" />
-    <Compile Include="Elmish/ReactXP.fs" />
   </ItemGroup>
   <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

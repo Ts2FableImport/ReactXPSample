@@ -13,7 +13,6 @@ type [<Pojo>] LazyProps<'model> = {
     equal:'model->'model->bool
 }
 module Components =
-    JsInterop.importAll "./CommonTest.fs"
 
     type LazyView<'model>(props)=
         inherit ComponentAbstract<LazyProps<'model>,obj>(props)
