@@ -9,7 +9,13 @@ open Fake.YarnHelper
 open Fake.ReleaseNotesHelper
 open Fake.Git
 open Fake.DotNetCli
-let webPath = "docs/web"
+let dotnetcliVersion = DotNetCli.GetDotNetSDKVersionFromGlobalJson()
+
+Target "InstallDotNetCore" (fun _ ->
+    DotNetCli.DotnetSDKPath <- DotNetCli.InstallDotNetSDK dotnetcliVersion
+)
+
+let webPath = "./docs/web" |> FullName
 
 Target "Restore" (fun _ ->
     Yarn (fun p -> { p with Command = Install Standard})
@@ -17,7 +23,7 @@ Target "Restore" (fun _ ->
 )
 
 Target "Default" DoNothing
-
-"Restore" 
+"InstallDotNetCore"
+==> "Restore" 
 ==> "Default"
 RunTargetOrDefault "Default"

@@ -8,6 +8,8 @@ out/*
 public/*.js
 public/*.map
 public/*/
+package-lock.json
+yarn.lock
 docs/*.map
 docs/*/obj
 docs/*/bin

@@ -20,4 +20,4 @@ before_script:
   - npm install -g npm
 
 script:
-  - ./build.sh All
+  - ./build.sh
