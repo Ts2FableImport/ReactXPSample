@@ -6,3 +6,8 @@ nuget Fable.Core
 nuget Fable.Import.Browser
 nuget Fable.React
 nuget Fable.Elmish
+group Build
+    source https://nuget.org/api/v2
+    nuget FAKE
+
+    github fsharp/FAKE modules/Octokit/Octokit.fsx

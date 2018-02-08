@@ -8,8 +8,8 @@ function resolve(filePath) {
 
 
 module.exports = {
-  entry: resolve("src/native/ReactXPSample.Native.fsproj"),
-  outDir: "public",
+  entry: resolve("docs/native/ReactXPSample.Native.fsproj"),
+  outDir: "out",
   babel: fableUtils.resolveBabelOptions({
     plugins: ["transform-es2015-modules-commonjs"],
     sourceMaps: true

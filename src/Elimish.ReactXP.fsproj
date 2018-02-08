@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Imports/Synctasks.fs" />
+    <Compile Include="Imports/Subscribableevent.fs" />
+    <Compile Include="Imports/React.fs" />
+    <Compile Include="Imports/ReactDom.fs" />
+    <Compile Include="Imports/ReactXP.fs" />
+    <Compile Include="Helps/React.fs" />
+    <Compile Include="Helps/ReactXP.fs" />
+    <Compile Include="Elmish/CommonTest.fs" />
+    <Compile Include="Elmish/Common.fs" />
+    <Compile Include="Elmish/React.fs" />
+    <Compile Include="Elmish/ReactNative.fs" />
+    <Compile Include="Elmish/ReactXP.fs" />
+  </ItemGroup>
+  <Import Project="..\.paket\Paket.Restore.targets" />
+</Project>

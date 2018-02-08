@@ -4,9 +4,13 @@ paket-files
 .DS_Store
 src/obj/
 # Xcode
+out/*
 public/*.js
 public/*.map
 public/*/
+docs/*.js
+docs/*.map
+docs/*/
 #
 build/
 *.pbxuser
