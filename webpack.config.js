@@ -26,6 +26,8 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: resolve('./docs/out'),
+    devtoolModuleFilenameTemplate: info =>
+    path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),
   },
   resolve: {
     modules: [resolve("./node_modules/")]
