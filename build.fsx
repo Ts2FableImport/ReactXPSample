@@ -10,16 +10,24 @@ open Fake.ReleaseNotesHelper
 open Fake.Git
 open Fake.DotNetCli
 let dotnetcliVersion = DotNetCli.GetDotNetSDKVersionFromGlobalJson()
+let mutable dotnetExePath = "dotnet"
 
 Target "InstallDotNetCore" (fun _ ->
-    DotNetCli.DotnetSDKPath <- DotNetCli.InstallDotNetSDK dotnetcliVersion
+    dotnetExePath <- DotNetCli.InstallDotNetSDK dotnetcliVersion
 )
 
-let webPath = "./docs/web" |> FullName
+let runDotnet workingDir args =
+    let result =
+        ExecProcess (fun info ->
+            info.FileName <- dotnetExePath
+            info.WorkingDirectory <- workingDir
+            info.Arguments <- args) TimeSpan.MaxValue
+    if result <> 0 then failwithf "dotnet %s failed" args
+let webDir = "./docs/web" |> FullName
 
 Target "Restore" (fun _ ->
     Yarn (fun p -> { p with Command = Install Standard})
-    DotNetCli.Restore (fun p ->{ p with WorkingDir = webPath})        
+    runDotnet webDir "restore"       
 )
 
 Target "Default" DoNothing
