@@ -12,7 +12,10 @@ package-lock.json
 yarn.lock
 docs/*.map
 docs/*/obj
+.fake
 docs/*/bin
+bin/
+obj/
 #
 build/
 *.pbxuser

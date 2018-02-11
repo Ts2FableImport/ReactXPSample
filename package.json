@@ -1,9 +1,12 @@
 {
   "private": true,
   "name": "ReactXPSample",
+  "fable": {
+    "entry": "docs/web/Docs.Web.fsproj"
+  },
   "scripts": {
-    "build": "webpack -p",
-    "start": "webpack-dev-server",
+    "build": "fake run tools/workflow.fsx -t Build",
+    "start": "fake run tools/workflow.fsx",
     "android": "haul start --platform android",
     "windows": "fable-splitter -c splitter.config.js -w",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -20,7 +23,10 @@
     "haul": "^1.0.0-beta.13",
     "rnpm-plugin-windows": "^0.2.8",
     "webpack": "3.8.1",
-    "webpack-dev-server": "2.9.4"
+    "webpack-dev-server": "2.9.4",
+    "html-webpack-plugin": "2.29.0",
+    "html-webpack-polyfill-io-plugin": "^1.0.0",
+    "copy-webpack-plugin": "^4.4.1"
   },
   "dependencies": {
     "es6-symbol": "^3.1.1",
@@ -32,5 +38,10 @@
     "reactxp-imagesvg": "^0.2.8",
     "reactxp-navigation": "^1.0.15",
     "reactxp-video": "^0.2.3"
+  },
+  "babel": {
+    "presets": [
+      "react-native"
+    ]
   }
 }
