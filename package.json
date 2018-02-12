@@ -7,8 +7,8 @@
   "scripts": {
     "build": "fake run tools/workflow.fsx -t Build",
     "start": "fake run tools/workflow.fsx",
-    "android": "haul start --platform android",
-    "windows": "fable-splitter -c splitter.config.js -w",
+    "android": "fake run tools/workflow.fsx -t RunAndroid",
+    "windows": "fake run tools/workflow.fsx -t RunWindows",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
@@ -17,16 +17,17 @@
     "babel-loader": "7.1.2",
     "babel-preset-env": "1.6.1",
     "babel-preset-react-native": "^4.0.0",
+    "copy-webpack-plugin": "^4.4.1",
     "fable-loader": "1.1.6",
     "fable-splitter": "^0.1.18",
     "fable-utils": "1.0.6",
     "haul": "^1.0.0-beta.13",
-    "rnpm-plugin-windows": "^0.2.8",
-    "webpack": "3.8.1",
-    "webpack-dev-server": "2.9.4",
     "html-webpack-plugin": "2.29.0",
     "html-webpack-polyfill-io-plugin": "^1.0.0",
-    "copy-webpack-plugin": "^4.4.1"
+    "react-native-cli": "^2.0.1",
+    "rnpm-plugin-windows": "^0.2.8",
+    "webpack": "3.8.1",
+    "webpack-dev-server": "2.9.4"
   },
   "dependencies": {
     "es6-symbol": "^3.1.1",
@@ -38,10 +39,5 @@
     "reactxp-imagesvg": "^0.2.8",
     "reactxp-navigation": "^1.0.15",
     "reactxp-video": "^0.2.3"
-  },
-  "babel": {
-    "presets": [
-      "react-native"
-    ]
   }
 }

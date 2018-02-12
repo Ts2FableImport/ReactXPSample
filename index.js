@@ -1,2 +1,2 @@
 import 'es6-symbol/implement';
-require('./out/App');
+require('./docs/native/bin/App');

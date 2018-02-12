@@ -26,4 +26,4 @@ let update (msg:Msg) count =
         count - 1
 
 let view _ (dispatch:Dispatch<Msg>) =
-    RX.Text[][str "Hello7"] 
+    RX.Text[][str "Hello18"] 
