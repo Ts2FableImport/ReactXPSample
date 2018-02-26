@@ -5,9 +5,10 @@ open Fable.Core.JsInterop
 open Fable.Import
 open Leisure.Helpers.ReactXP
 open Elmish
-open Leisure.Helpers.React
-type Model = int
+open Docs.Style
 
+        
+type Model = int
 
 type Msg =
   | Increment
@@ -25,5 +26,7 @@ let update (msg:Msg) count =
     | Decrement ->
         count - 1
 
+
 let view _ (dispatch:Dispatch<Msg>) =
-    RX.Text[][str "Hello18"] 
+    RX.Text[helloStyle][str "Hello19"] 
+    // a[Style [Padding "0 20px"]][str "Hello19"] 

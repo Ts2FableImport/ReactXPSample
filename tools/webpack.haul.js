@@ -8,7 +8,7 @@ function resolvePath(filePath) {
 
 var babelOptions = fableUtils.resolveBabelOptions({
   presets: [
-    ["react-native"]
+    ["env", { "targets": { "browsers": "> 1%" }, "modules": false }]
   ],
 });
 
@@ -17,7 +17,7 @@ console.log("Bundling for " + (isProduction ? "production" : "development") + ".
 
 module.exports = ({ platform }, { module, resolve }) => ({
   devtool: "eval-source-map",
-  entry: resolvePath('./docs/native/Docs.Native.fsproj'),
+  entry: resolvePath('../docs/native/Docs.Native.fsproj'),
   module: {
     ...module,
     rules: [
@@ -45,7 +45,7 @@ module.exports = ({ platform }, { module, resolve }) => ({
   resolve: {
     ...resolve,
     modules: [
-      resolvePath("./node_modules/"),
+      resolvePath("../node_modules/"),
     ]
   }
 });

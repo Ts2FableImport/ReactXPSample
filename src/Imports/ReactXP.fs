@@ -665,7 +665,7 @@ module ___common_Types =
 
     type [<AllowNullLiteral>] TextProps =
         inherit TextPropsShared
-        abstract style: StyleRuleSetRecursive<TextStyleRuleSet> option with get, set
+        abstract style: TextStyle with get, set
 
     type [<AllowNullLiteral>] AnimatedTextProps =
         inherit TextPropsShared

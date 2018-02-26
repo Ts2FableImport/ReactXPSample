@@ -5,7 +5,6 @@ open Fable.Core
 open Fable.Import.JS
 open Fable.Import.Browser
 open React
-open React
 
 let [<Import("*","react")>] react: React.IExports = jsNative
 

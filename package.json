@@ -7,9 +7,11 @@
   "scripts": {
     "build": "fake run tools/workflow.fsx -t Build",
     "start": "fake run tools/workflow.fsx",
+    "splitter": "fake run tools/workflow.fsx -t Splitter",
     "android": "fake run tools/workflow.fsx -t RunAndroid",
     "windows": "fake run tools/workflow.fsx -t RunWindows",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "haul": "haul"
   },
   "devDependencies": {
     "@types/node": "^7.0.12",

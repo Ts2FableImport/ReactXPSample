@@ -2,13 +2,13 @@
 nuget Fake.DotNet.Cli
 nuget Fake.IO.FileSystem
 nuget Fake.Core.Environment
+nuget Microsoft.EntityFrameworkCore
+nuget Humhei.CliHelper
 nuget Fake.Core.Target //"
 #load "./.fake/workflow.fsx/intellisense.fsx"
 open System
 open Fake.Core
-open Fake.IO
 open Fake.IO.FileSystemOperators
-
 let run' timeout (cmd:string) dir args  =
     if Process.ExecProcess (fun info ->
         { info with 
@@ -29,10 +29,8 @@ let platformTool tool =
     Process.tryFindFileOnPath tool
     |> function Some t -> t | _ -> failwithf "%s not found" tool
     
-
 let reactNativeTool = platformTool "react-native"
 let yarnTool = platformTool "yarn"
-let haulTool = platformTool "haul"
 let mutable dotnetExePath = "dotnet"
 let toolDir = "./tools" 
 let splitterConfig = toolDir </> "splitter.config.js"
@@ -44,9 +42,13 @@ let runDotnet workingDir args =
             WorkingDirectory = workingDir 
             Arguments =  args }) TimeSpan.MaxValue
     if result <> 0 then failwithf "dotnet %s failed" args 
-    
+
+Target.Create "Splitter" (fun _ ->
+    run yarnTool toolDir <| sprintf "fable-splitter -c %s -w " splitterConfig
+)
+
 Target.Create "Build" (fun _ ->
-    runDotnet toolDir "fable webpack -- -p --config webpack.config.prod.js -w"
+    runDotnet toolDir "fable webpack -- -p --config webpack.config.prod.js "
 )
 
 Target.Create "Start" (fun _ ->
@@ -54,7 +56,7 @@ Target.Create "Start" (fun _ ->
 )
 
 Target.Create "RunWindows" (fun _ ->
-    
+
     let runSplitter = async { run yarnTool toolDir <| sprintf "fable-splitter -c %s -w " splitterConfig }
     let runFableDaemon = async { runDotnet toolDir "fable start" }
     let runNative = async { run reactNativeTool "./" "run-windows" }
@@ -64,8 +66,15 @@ Target.Create "RunWindows" (fun _ ->
     |> ignore
 )
 
-// Target.Create "RunAndroid" (fun _ ->
-//     runDotnet toolDir "fable haul"
-// )
+Target.Create "RunAndroid" (fun _ ->
+    let runFableDaemon = async { runDotnet toolDir "fable start" }
+    let runHaul = async { run yarnTool toolDir "haul --platform android --config tools/webpack.haul.js" }
+    let runNative = async { run reactNativeTool "./" "run-android" }
+    [runHaul; runFableDaemon; runNative]
+    |> Async.Parallel
+    |> Async.RunSynchronously
+    |> ignore
+)
+
 
 Target.RunOrDefault "Start"
